@@ -1,6 +1,16 @@
 <script lang="ts">
-	const nameList = ['Todd', 'Larry', 'Danny'];
+	const randomNumber = Math.floor(Math.random() * 5);
+	const user = {
+		name: 'Todd',
+		email: 'todd@example.com',
+		phone: '09123456789'
+	};
 
+	const map = new Map([
+		['name', 'Todd'],
+		['email', 'todd@example.com'],
+		['phone', '09123456789']
+	]);
 	const promise: Promise<string> = new Promise((resolve) => {
 		setTimeout(() => {
 			resolve('Hello, World!');
@@ -25,38 +35,60 @@
 	};
 </script>
 
+<h2>{'{#if}'}</h2>
 {#if true}
-	<h1>it will always be shown</h1>
+	<p>it will always be shown</p>
 {/if}
 
 {#if false}
-	<h1>it will never be shown</h1>
+	<p>it will never be shown</p>
 {/if}
 
-<select>
-	{#each nameList as name}
-		<option>{name}</option>
-	{/each}
-</select>
+{#if randomNumber === 0}
+	<p>randomNumber is 0</p>
+{:else if randomNumber >= 1 && randomNumber <= 3}
+	<p>randomNumber is between 1 and 3</p>
+{:else}
+	<p>randomNumber is 4</p>
+{/if}
 
+<div class="divider"></div>
+
+<h2>{'{#each}'}</h2>
+
+{#each ['Todd', 'Larry', 'Danny'] as name}
+	<p>name: {name}</p>
+{/each}
+
+{#each Object.entries(user) as [key, value]}
+	<p>{key} : {value}</p>
+{/each}
+
+{#each map as [key, value]}
+	<p>{key} : {value}</p>
+{/each}
+
+<div class="divider"></div>
+
+<h2>{'{#await}'}</h2>
 {#await promise}
-	<h1>Loading...</h1>
+	<p>Loading...</p>
 {:then result}
-	<h1>{result}</h1>
+	<p>{result}</p>
 {:catch error}
-	<h1>Error: {error}</h1>
+	<p>Error: {error}</p>
 {/await}
 
 {#await errorPromise}
-	<h1>Loading...</h1>
+	<p>Loading...</p>
 {:then result}
-	<h1>1{result}</h1>
+	<p>1{result}</p>
 {:catch error}
-	<h1>Error: {error}</h1>
+	<p>Error: {error}</p>
 {/await}
 
 {#await fetchData()}
-	<h1>Loading...</h1>
+	<p>Loading...</p>
 {:then result}
 	<div>
 		<p>id: {result.id}</p>
@@ -69,6 +101,9 @@
 {/await}
 
 <style>
+	.divider {
+		border: 1px solid #000;
+	}
 	h1 {
 		color: cadetblue;
 	}
