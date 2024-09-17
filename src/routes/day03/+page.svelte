@@ -62,11 +62,12 @@
 {#each ['Todd', 'Larry', 'Danny'] as name}
 	<p>name: {name}</p>
 {/each}
-
+<br />
 {#each Object.entries(user) as [key, value]}
 	<p>{key} : {value}</p>
 {/each}
 
+<br />
 {#each map as [key, value]}
 	<p>{key} : {value}</p>
 {/each}
@@ -78,21 +79,15 @@
 	<p>Loading...</p>
 {:then result}
 	<p>{result}</p>
-{:catch error}
-	<p>Error: {error}</p>
 {/await}
 
 {#await getErrorPromise()}
 	<p>Loading...</p>
-{:then result}
-	<p>1{result}</p>
 {:catch error}
-	<p>Error: {error}</p>
+	<p>Error Message: {error}</p>
 {/await}
 
-{#await fetchData()}
-	<p>Loading...</p>
-{:then result}
+{#await fetchData() then result}
 	<div>
 		<p>id: {result.id}</p>
 		<p>title: {result.title}</p>
@@ -100,7 +95,7 @@
 		<p>userId: {result.userId}</p>
 	</div>
 {:catch error}
-	<h1>Error: {error}</h1>
+	<h1>Error Message: {error}</h1>
 {/await}
 
 <style>
