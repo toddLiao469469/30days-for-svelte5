@@ -11,17 +11,20 @@
 		['email', 'todd@example.com'],
 		['phone', '09123456789']
 	]);
-	const promise: Promise<string> = new Promise((resolve) => {
-		setTimeout(() => {
-			resolve('Hello, World!');
-		}, 5000);
-	});
 
-	const errorPromise = new Promise((_, reject) => {
-		setTimeout(() => {
-			reject('Error: Something went wrong');
-		}, 5000);
-	});
+	const getPromise = (): Promise<string> =>
+		new Promise((resolve) => {
+			setTimeout(() => {
+				resolve('Hello, World!');
+			}, 2000);
+		});
+
+	const getErrorPromise = () =>
+		new Promise((_, reject) => {
+			setTimeout(() => {
+				reject('Error: Something went wrong');
+			}, 2000);
+		});
 
 	const fetchData = async () => {
 		const response = await fetch('https://jsonplaceholder.typicode.com/todos/1');
@@ -71,7 +74,7 @@
 <div class="divider"></div>
 
 <h2>{'{#await}'}</h2>
-{#await promise}
+{#await getPromise()}
 	<p>Loading...</p>
 {:then result}
 	<p>{result}</p>
@@ -79,7 +82,7 @@
 	<p>Error: {error}</p>
 {/await}
 
-{#await errorPromise}
+{#await getErrorPromise()}
 	<p>Loading...</p>
 {:then result}
 	<p>1{result}</p>
