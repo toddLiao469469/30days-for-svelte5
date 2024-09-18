@@ -18,18 +18,6 @@
 	const decrement = () => {
 		count -= 1;
 	};
-
-	$effect(() => {
-		console.log(`[Effect 1] Count: ${count} , Double: ${double}`);
-	});
-
-	$effect(() => {
-		console.log(`[Effect 2] Count2: ${count2}`);
-	});
-
-	$effect(() => {
-		console.log(`[Effect 3] Total: ${total}`);
-	});
 </script>
 
 <p class="content">
