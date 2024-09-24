@@ -1,4 +1,7 @@
 <script lang="ts">
+	import Input from './Input.svelte';
+	import PageLayout from './PageLayout.svelte';
+
 	interface Todo {
 		id: number;
 		title: string;
@@ -11,6 +14,18 @@
 			id: Date.now(),
 			title: 'First todo',
 			content: 'This is the first todo',
+			done: true
+		},
+		{
+			id: Date.now() + 1,
+			title: 'Second todo',
+			content: 'This is the second todo',
+			done: false
+		},
+		{
+			id: Date.now() + 2,
+			title: 'Third todo',
+			content: 'This is the third todo',
 			done: false
 		}
 	]);
@@ -29,23 +44,31 @@
 		title = '';
 		content = '';
 	};
+
+	const removeTodo = (id: number) => {
+		todoList = todoList.filter((todo) => todo.id !== id);
+	};
 </script>
 
-<div class="max-w-3xl mx-auto">
-	<div class="grid grid-cols-2 mb-8 gap-x-8">
-		<label class="form-control w-full">
-			<div class="label">
-				<span class="label-text text-primary">Title</span>
+{#snippet card(todo: Todo)}
+	<div class="card shadow bg-base-200 mb-4">
+		<div class="card-body">
+			<div class="flex justify-between items-center">
+				<h2 class:line-through={todo.done} class="card-title">{todo.title}</h2>
+				<input type="checkbox" bind:checked={todo.done} class="checkbox checkbox-lg" />
 			</div>
-			<input type="text" class="input input-bordered w-full" bind:value={title} />
-		</label>
+			<p class:text-gray-700={todo.done}>{todo.content}</p>
+			<button class="ml-auto w-20 btn btn-error" onclick={() => removeTodo(todo.id)}>
+				Remove
+			</button>
+		</div>
+	</div>
+{/snippet}
 
-		<label class="form-control w-full">
-			<div class="label">
-				<span class="label-text text-primary">Content</span>
-			</div>
-			<input type="text" class="input input-bordered w-full" bind:value={content} />
-		</label>
+<PageLayout>
+	<div class="grid grid-cols-2 mb-8 gap-x-8">
+		<Input label="Title" bind:value={title} />
+		<Input label="Content" bind:value={content} />
 	</div>
 
 	<button class="btn btn-primary" onclick={addTodo}> Add Todo </button>
@@ -53,14 +76,6 @@
 	<div class="divider"></div>
 
 	{#each todoList as todo (todo.id)}
-		<div class="card shadow bg-base-200 mb-4">
-			<div class="card-body">
-				<div class="flex justify-between items-center">
-					<h2 class="card-title">{todo.title}</h2>
-					<input type="checkbox" bind:checked={todo.done} class="checkbox checkbox-lg" />
-				</div>
-				<p>{todo.content}</p>
-			</div>
-		</div>
+		{@render card(todo)}
 	{/each}
-</div>
+</PageLayout>
