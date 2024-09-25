@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { fly } from 'svelte/transition';
+
 	import Input from './Input.svelte';
 	import PageLayout from './PageLayout.svelte';
 
@@ -51,7 +53,7 @@
 </script>
 
 {#snippet card(todo: Todo)}
-	<div class="card shadow bg-base-200 mb-4">
+	<div class="card shadow bg-base-200 mb-4" in:fly={{ y: 200 }} out:fly={{ y: -200 }}>
 		<div class="card-body">
 			<div class="flex justify-between items-center">
 				<h2 class:line-through={todo.done} class="card-title">{todo.title}</h2>
@@ -67,7 +69,7 @@
 
 <PageLayout>
 	<div class="grid grid-cols-2 mb-8 gap-x-8">
-		<Input label="Title" bind:value={title} />
+		<Input label="Title" bind:value={title} maxLength={20} />
 		<Input label="Content" bind:value={content} />
 	</div>
 
