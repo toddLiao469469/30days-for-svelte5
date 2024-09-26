@@ -3,53 +3,10 @@
 
 	import Input from './Input.svelte';
 	import PageLayout from './PageLayout.svelte';
-
-	interface Todo {
-		id: number;
-		title: string;
-		content: string;
-		done: boolean;
-	}
-
-	let todoList: Todo[] = $state([
-		{
-			id: Date.now(),
-			title: 'First todo',
-			content: 'This is the first todo',
-			done: true
-		},
-		{
-			id: Date.now() + 1,
-			title: 'Second todo',
-			content: 'This is the second todo',
-			done: false
-		},
-		{
-			id: Date.now() + 2,
-			title: 'Third todo',
-			content: 'This is the third todo',
-			done: false
-		}
-	]);
+	import todoListStore, { type Todo } from './todo.svelte';
 
 	let title = $state('');
 	let content = $state('');
-
-	const addTodo = () => {
-		todoList.push({
-			id: Date.now(),
-			title,
-			content,
-			done: false
-		});
-
-		title = '';
-		content = '';
-	};
-
-	const removeTodo = (id: number) => {
-		todoList = todoList.filter((todo) => todo.id !== id);
-	};
 </script>
 
 {#snippet card(todo: Todo)}
@@ -60,7 +17,7 @@
 				<input type="checkbox" bind:checked={todo.done} class="checkbox checkbox-lg" />
 			</div>
 			<p class:text-gray-700={todo.done}>{todo.content}</p>
-			<button class="ml-auto w-20 btn btn-error" onclick={() => removeTodo(todo.id)}>
+			<button class="ml-auto w-20 btn btn-error" onclick={() => todoListStore.removeTodo(todo.id)}>
 				Remove
 			</button>
 		</div>
@@ -73,11 +30,18 @@
 		<Input label="Content" bind:value={content} />
 	</div>
 
-	<button class="btn btn-primary" onclick={addTodo}> Add Todo </button>
+	<button
+		class="btn btn-primary"
+		onclick={() => {
+			todoListStore.addTodo({ title, content });
+		}}
+	>
+		Add Todo
+	</button>
 
 	<div class="divider"></div>
 
-	{#each todoList as todo (todo.id)}
+	{#each todoListStore.todoList as todo (todo.id)}
 		{@render card(todo)}
 	{/each}
 </PageLayout>
