@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      runed:
+        specifier: ^0.15.2
+        version: 0.15.2(svelte@5.0.0-next.253)
     devDependencies:
       '@sveltejs/adapter-auto':
         specifier: ^3.0.0
@@ -1347,6 +1351,11 @@ packages:
 
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
+
+  runed@0.15.2:
+    resolution: {integrity: sha512-4rqCpoq3IezYYxgGo4ukboXdZ86Z7xPkQJzdIO0h0NVHVX0Hwg+X5rOnRWoqRHMYIwEGpr+tSA2ywhlzOcMF5g==}
+    peerDependencies:
+      svelte: ^5.0.0-next.1
 
   rxjs@7.8.1:
     resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}
@@ -3002,6 +3011,11 @@ snapshots:
   run-parallel@1.2.0:
     dependencies:
       queue-microtask: 1.2.3
+
+  runed@0.15.2(svelte@5.0.0-next.253):
+    dependencies:
+      esm-env: 1.0.0
+      svelte: 5.0.0-next.253
 
   rxjs@7.8.1:
     dependencies:
