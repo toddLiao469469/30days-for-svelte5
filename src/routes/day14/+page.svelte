@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createQuery } from '@tanstack/svelte-query';
-	import { watch } from 'runed';
+	import { derived, writable } from 'svelte/store';
 
 	interface Todo {
 		id: number;
@@ -15,17 +15,30 @@
 		return data;
 	};
 
-	const query = createQuery<Todo[]>({
-		queryKey: ['queryKey'],
-		queryFn: async () => await fetchData()
-	});
+	let enabled = writable(false);
 
-	const status = $derived($query.status);
+	let query = createQuery<Todo[]>(
+		derived(enabled, (enabled) => ({
+			queryKey: ['queryKey'],
+			enabled,
+			queryFn: async () => await fetchData()
+		}))
+	);
+
 	$effect(() => {
-		console.log('status', status);
+		console.log('data', enabled);
+		console.log('status', $query.status);
 	});
 </script>
 
+<button
+	class="btn btn-primary"
+	onclick={() => {
+		enabled.update((prev) => !prev);
+	}}
+>
+	toggle
+</button>
 <div class="p-12">
 	{#if $query.isPending}
 		Loading...
