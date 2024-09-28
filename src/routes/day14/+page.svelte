@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { createQuery } from '@tanstack/svelte-query';
+	import { watch } from 'runed';
 
 	interface Todo {
 		id: number;
@@ -17,6 +18,11 @@
 	const query = createQuery<Todo[]>({
 		queryKey: ['queryKey'],
 		queryFn: async () => await fetchData()
+	});
+
+	const status = $derived($query.status);
+	$effect(() => {
+		console.log('status', status);
 	});
 </script>
 
