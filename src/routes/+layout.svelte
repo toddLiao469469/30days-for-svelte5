@@ -18,6 +18,7 @@
 	<a href="/day17">day17</a>
 	<a href="/day18">day18</a>
 	<a href="/day19">day19</a>
+	<a href="/day20">day20</a>
 </nav>
 
 <QueryClientProvider client={queryClient}>
