@@ -9,7 +9,7 @@
 	const handleClick = (name: string) => {
 		console.log(`Hello, ${name}!`);
 	};
-	console.log('data', data);
+	// console.log('data', data);
 </script>
 
 <h1 id="title">Hi, <span class="name">{name}</span>! Welcome to SvelteKit</h1>

@@ -20,6 +20,7 @@
 	<a href="/day19">day19</a>
 	<a href="/day20">day20</a>
 	<a href="/day21">day21</a>
+	<a href="/day22" data-sveltekit-preload-data="hover" data-sveltekit-preload-code="eager">day22</a>
 </nav>
 
 <QueryClientProvider client={queryClient}>
