@@ -49,7 +49,9 @@ const todoListStoreCreator = () => {
 	};
 
 	return {
-		todoList,
+		get todoList() {
+			return todoList;
+		},
 		addTodo,
 		removeTodo,
 		toggleDone
